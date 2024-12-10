@@ -8,8 +8,11 @@ import {
   Alert,
 } from "@mui/material";
 import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function SignupPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     fullName: "",
@@ -27,10 +30,27 @@ export default function LoginPage() {
     });
   };
 
+  const { signUp } = useAuth();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(false);
+    setIsLoading(true);
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords don't match");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      await signUp(formData.username, formData.fullName, formData.password);
+      router.push("/"); // or wherever you want to redirect after signup
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -129,10 +149,10 @@ export default function LoginPage() {
 
           <div className="text-center mt-4">
             <Link
-              href="/login"
+              href="/signin"
               className="text-blue-500 hover:text-blue-600 text-sm"
             >
-              Already have an account? Log In
+              Already have an account? Sign In
             </Link>
           </div>
         </form>
