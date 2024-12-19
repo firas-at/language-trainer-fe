@@ -1,7 +1,4 @@
 import axios from "axios";
-import { VerbInfo } from "./responses/verb_info";
-import { NounInfo } from "./responses/noun_info";
-import { AdjectiveInfo } from "./responses/adjective_info";
 import { WordInfo } from "./responses/word_info";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
