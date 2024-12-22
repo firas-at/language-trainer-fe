@@ -17,7 +17,10 @@ export default function Home() {
 
   const fetchWords = async () => {
     try {
-      const userWords = await wordsService.getUserWords(token!);
+      const userWords = await wordsService.getUserWords(token!, {
+        sort_by: "createdAt",
+        sort_order: "desc",
+      });
       setWords(userWords);
     } catch (error) {
       console.error("Failed to fetch words:", error);

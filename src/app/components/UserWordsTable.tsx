@@ -10,6 +10,11 @@ interface UserWordsTableProps {
   filterType: WordType | '';
 }
 
+const formatDate = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+  return new Date(dateString).toLocaleDateString('en-US', options);
+};
+
 const UserWordsTable: React.FC<UserWordsTableProps> = ({ words, filterType }) => {
   return (
     <div className="mx-5">
@@ -20,6 +25,7 @@ const UserWordsTable: React.FC<UserWordsTableProps> = ({ words, filterType }) =>
             <th className="px-4 py-2 text-black">Type</th>
             <th className="px-4 py-2 text-black">Example</th>
             <th className="px-4 py-2 text-black">Translation</th>
+            <th className="px-4 py-2 text-black">Added on</th>
             {/* Conditional columns based on filter type */}
             {filterType === "Verb" && (
               <>
@@ -50,6 +56,7 @@ const UserWordsTable: React.FC<UserWordsTableProps> = ({ words, filterType }) =>
               <td className="px-4 py-2 text-black">{word.type}</td>
               <td className="px-4 py-2 text-black">{word.info.sentence_example}</td>
               <td className="px-4 py-2 text-black">{word.info.translation}</td>
+              <td className="px-4 py-2 text-black">{formatDate(new Date(word.createdAt).toISOString())}</td>
               {/* Conditional rendering of additional fields based on filter type */}
               {filterType === "Verb" && (
                 <>
