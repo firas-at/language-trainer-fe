@@ -22,10 +22,7 @@ const UserWordsTable: React.FC<UserWordsTableProps> = ({ words, filterType }) =>
         <thead className="bg-gray-200">
           <tr>
             <th className="px-4 py-2 text-black">Key</th>
-            <th className="px-4 py-2 text-black">Type</th>
-            <th className="px-4 py-2 text-black">Example</th>
             <th className="px-4 py-2 text-black">Translation</th>
-            <th className="px-4 py-2 text-black">Added on</th>
             {/* Conditional columns based on filter type */}
             {filterType === "Verb" && (
               <>
@@ -47,16 +44,15 @@ const UserWordsTable: React.FC<UserWordsTableProps> = ({ words, filterType }) =>
                 <th className="px-4 py-2 text-black">Opposite</th>
               </>
             )}
+            <th className="px-4 py-2 text-black">Example</th>
+            <th className="px-4 py-2 text-black">Added on</th>
           </tr>
         </thead>
         <tbody>
           {words.map((word) => (
             <tr key={word.key}>
               <td className="px-4 py-2 text-black">{word.key}</td>
-              <td className="px-4 py-2 text-black">{word.type}</td>
-              <td className="px-4 py-2 text-black">{word.info.sentence_example}</td>
               <td className="px-4 py-2 text-black">{word.info.translation}</td>
-              <td className="px-4 py-2 text-black">{formatDate(new Date(word.createdAt).toISOString())}</td>
               {/* Conditional rendering of additional fields based on filter type */}
               {filterType === "Verb" && (
                 <>
@@ -78,6 +74,8 @@ const UserWordsTable: React.FC<UserWordsTableProps> = ({ words, filterType }) =>
                   <td className="px-4 py-2 text-black">{(word.info as AdjectiveInfo).opposite}</td>
                 </>
               )}
+              <td className="px-4 py-2 text-black">{word.info.sentence_example}</td>
+              <td className="px-4 py-2 text-black">{formatDate(new Date(word.createdAt).toISOString())}</td>
             </tr>
           ))}
         </tbody>
