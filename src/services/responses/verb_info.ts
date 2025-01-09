@@ -1,12 +1,8 @@
 import { WordInfo } from "./word_info";
 
 export class VerbInfo extends WordInfo {
-  constructor(
-    public infitinve_from: string,
-    public partizip_2_form: string,
-    public auxiliary_verb: string,
-    public präteritum_form: string,
-  ) {
-    super();
-  }
+  public infitinve_from: string = "";
+  public partizip_2_form: string = "";
+  public auxiliary_verb: string = "";
+  public präteritum_form: string = "";
 }
